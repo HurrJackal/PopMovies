@@ -1,0 +1,82 @@
+package it.marcoliv.popmovies;
+
+
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.GridView;
+import android.widget.Toast;
+
+import java.util.List;
+
+import it.marcoliv.popmovies.model.Movie;
+import it.marcoliv.popmovies.model.Movies;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+public class MainActivity extends AppCompatActivity {
+    private static final String LOG_TAG = MainActivity.class.getSimpleName();
+    String[] mockUrl = {
+            "http://i.imgur.com/rFLNqWI.jpg",
+            "http://i.imgur.com/C9pBVt7.jpg",
+            "http://i.imgur.com/rT5vXE1.jpg",
+            "http://i.imgur.com/aIy5R2k.jpg",
+            "http://i.imgur.com/MoJs9pT.jpg",
+            "http://i.imgur.com/S963yEM.jpg",
+            "http://i.imgur.com/rLR2cyc.jpg",
+            "http://i.imgur.com/SEPdUIx.jpg",
+            "http://i.imgur.com/aC9OjaM.jpg",
+            "http://i.imgur.com/76Jfv9b.jpg",
+            "http://i.imgur.com/fUX7EIB.jpg",
+            "http://i.imgur.com/syELajx.jpg",
+            "http://i.imgur.com/COzBnru.jpg",
+            "http://i.imgur.com/Z3QjilA.jpg",
+    };
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.grid_view_layout);
+
+        GridView gridView = (GridView) findViewById(R.id.gridview);
+
+        ImageAdapter mImageAdapter = new ImageAdapter(this,mockUrl);
+
+        gridView.setAdapter(mImageAdapter);
+
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Toast.makeText(MainActivity.this, "Your selected position is: "+i, Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        Log.d(LOG_TAG, "my Api key: "+BuildConfig.THE_MOVIE_DB_API_KEY);
+
+        testApiPopularMovies();
+
+    }
+
+    private void testApiPopularMovies(){
+        Call<Movies> call = MoviedbApi.getInstance().getService().getPopular(BuildConfig.THE_MOVIE_DB_API_KEY);
+        Log.d(LOG_TAG, "call: " + call.request().toString());
+        call.enqueue(new Callback<Movies>() {
+            @Override
+            public void onResponse(Call<Movies> call, Response<Movies> response) {
+                int statusCode = response.code();
+                Movies movies = response.body();
+
+                Log.d(LOG_TAG, "onResponse statusCode: "+ statusCode);
+                Log.d(LOG_TAG, "first movie: " + movies.getMovies().get(0).toString());
+            }
+
+            @Override
+            public void onFailure(Call<Movies> call, Throwable t) {
+                Log.d(LOG_TAG, "onFailure: "+ t.getMessage());
+            }
+        });
+    }
+}
