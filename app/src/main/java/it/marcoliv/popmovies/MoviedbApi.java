@@ -1,11 +1,11 @@
 package it.marcoliv.popmovies;
 
-import it.marcoliv.popmovies.model.Movies;
+import it.marcoliv.popmovies.model.KMovies;
 import retrofit2.Call;
 import retrofit2.Retrofit;
+import retrofit2.converter.moshi.MoshiConverterFactory;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * Created by marcoliv on 9/23/2016.
@@ -19,7 +19,7 @@ public class MoviedbApi {
 
     public interface MoviedbService {
         @GET("3/movie/popular?")
-        Call<Movies> getPopular(@Query("api_key") String api_key);
+        Call<KMovies> getPopular(@Query("api_key") String api_key);
     }
 
     /**
@@ -29,7 +29,7 @@ public class MoviedbApi {
         // Retrofit setup
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
+                .addConverterFactory(MoshiConverterFactory.create())
                 .build();
 
         // Service setup

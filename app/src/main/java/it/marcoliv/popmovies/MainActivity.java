@@ -11,8 +11,8 @@ import android.widget.Toast;
 
 import java.util.List;
 
-import it.marcoliv.popmovies.model.Movie;
-import it.marcoliv.popmovies.model.Movies;
+import it.marcoliv.popmovies.model.KMovies;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -61,20 +61,20 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void testApiPopularMovies(){
-        Call<Movies> call = MoviedbApi.getInstance().getService().getPopular(BuildConfig.THE_MOVIE_DB_API_KEY);
+        Call<KMovies> call = MoviedbApi.getInstance().getService().getPopular(BuildConfig.THE_MOVIE_DB_API_KEY);
         Log.d(LOG_TAG, "call: " + call.request().toString());
-        call.enqueue(new Callback<Movies>() {
+        call.enqueue(new Callback<KMovies>() {
             @Override
-            public void onResponse(Call<Movies> call, Response<Movies> response) {
+            public void onResponse(Call<KMovies> call, Response<KMovies> response) {
                 int statusCode = response.code();
-                Movies movies = response.body();
+                KMovies movies = response.body();
 
                 Log.d(LOG_TAG, "onResponse statusCode: "+ statusCode);
-                Log.d(LOG_TAG, "first movie: " + movies.getMovies().get(0).toString());
+                Log.d(LOG_TAG, "first movie: " + movies.getResults().get(0).getTitle());
             }
 
             @Override
-            public void onFailure(Call<Movies> call, Throwable t) {
+            public void onFailure(Call<KMovies> call, Throwable t) {
                 Log.d(LOG_TAG, "onFailure: "+ t.getMessage());
             }
         });
