@@ -11,6 +11,8 @@ import android.widget.Toast;
 
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import it.marcoliv.popmovies.model.KMovies;
 
 import retrofit2.Call;
@@ -36,12 +38,13 @@ public class MainActivity extends AppCompatActivity {
             "http://i.imgur.com/Z3QjilA.jpg",
     };
 
+    @BindView(R.id.gridview) GridView gridView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.grid_view_layout);
-
-        GridView gridView = (GridView) findViewById(R.id.gridview);
+        ButterKnife.bind(this);
 
         ImageAdapter mImageAdapter = new ImageAdapter(this,mockUrl);
 
@@ -57,7 +60,6 @@ public class MainActivity extends AppCompatActivity {
         Log.d(LOG_TAG, "my Api key: "+BuildConfig.THE_MOVIE_DB_API_KEY);
 
         testApiPopularMovies();
-
     }
 
     private void testApiPopularMovies(){
