@@ -1,6 +1,7 @@
 package it.marcoliv.popmovies;
 
 
+import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -9,12 +10,18 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.Toast;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import it.marcoliv.popmovies.model.KMovies;
 
+import it.marcoliv.popmovies.model.MessageEvent;
+import it.marcoliv.popmovies.model.SomeOtherEvent;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -59,26 +66,32 @@ public class MainActivity extends AppCompatActivity {
 
         Log.d(LOG_TAG, "my Api key: "+BuildConfig.THE_MOVIE_DB_API_KEY);
 
-        testApiPopularMovies();
+        ApiController.getPopularMovies();
     }
 
-    private void testApiPopularMovies(){
-        Call<KMovies> call = MoviedbApi.getInstance().getService().getPopular(BuildConfig.THE_MOVIE_DB_API_KEY);
-        Log.d(LOG_TAG, "call: " + call.request().toString());
-        call.enqueue(new Callback<KMovies>() {
-            @Override
-            public void onResponse(Call<KMovies> call, Response<KMovies> response) {
-                int statusCode = response.code();
-                KMovies movies = response.body();
-
-                Log.d(LOG_TAG, "onResponse statusCode: "+ statusCode);
-                Log.d(LOG_TAG, "first movie: " + movies.getResults().get(0).getTitle());
-            }
-
-            @Override
-            public void onFailure(Call<KMovies> call, Throwable t) {
-                Log.d(LOG_TAG, "onFailure: "+ t.getMessage());
-            }
-        });
+    @Override
+    protected void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
     }
+
+    @Override
+    protected void onStop() {
+        EventBus.getDefault().unregister(this);
+        super.onStop();
+    }
+
+    // This method will be called when a MessageEvent is posted
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(MessageEvent event){
+        Toast.makeText(getApplicationContext(), event.getMessage(), Toast.LENGTH_SHORT).show();
+    }
+
+    // This method will be calle when a SomeOtherEvent is posted
+    @Subscribe
+    public void handleSomethingElse(SomeOtherEvent event){
+        Log.d(LOG_TAG, "handleSomethingElse - code: " + event.getCode() + " message: " + event.getMessage());
+    }
+
+
 }
