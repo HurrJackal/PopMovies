@@ -2,6 +2,7 @@ package it.marcoliv.popmovies;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,20 +11,26 @@ import android.widget.ImageView;
 
 import com.squareup.picasso.Picasso;
 
+import java.util.List;
+
+import it.marcoliv.popmovies.model.KMovie;
+import it.marcoliv.popmovies.model.KMovies;
+
 /**
  * Created by marcoliv on 9/22/2016.
  */
 
 public class ImageAdapter extends ArrayAdapter {
+    private static final String  LOG_TAG = ImageAdapter.class.getSimpleName();
     private Context context;
     private LayoutInflater inflater;
-    private String[] imageUrls;
+    private List<KMovie> mMovies;
 
-    public ImageAdapter(Context context, String[] imageUrls) {
-        super(context, R.layout.grid_view_layout, imageUrls);
+    public ImageAdapter(Context context, List<KMovie> mMovies) {
+        super(context, R.layout.grid_view_layout, mMovies);
 
         this.context = context;
-        this.imageUrls = imageUrls;
+        this.mMovies = mMovies;
         inflater = LayoutInflater.from(context);
     }
 
@@ -37,15 +44,19 @@ public class ImageAdapter extends ArrayAdapter {
     @NonNull
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-       if(convertView == null){
+        if(convertView == null){
            convertView = inflater.inflate(R.layout.grid_view_image, parent, false);
-       }
+        }
+
+        String url =    Constants.BASE_URL_IMAGE + Constants.RESOLUTION_W1000 +
+                        mMovies.get(position).getPoster_path();
+
+        Log.d(LOG_TAG, "url: " + url);
 
         Picasso
                 .with(context)
-                .load(imageUrls[position])
-                .fit()
-                .into((ImageView) convertView);
+                .load(url)
+                .into((ImageView)convertView);
 
         return convertView;
     }

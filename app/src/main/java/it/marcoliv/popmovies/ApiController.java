@@ -5,7 +5,6 @@ import android.util.Log;
 import org.greenrobot.eventbus.EventBus;
 
 import it.marcoliv.popmovies.model.KMovies;
-import it.marcoliv.popmovies.model.MessageEvent;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -17,6 +16,9 @@ import retrofit2.Response;
 public class ApiController {
     private static final String LOG_TAG = ApiController.class.getSimpleName();
 
+    /**
+     * Get a list of current popular movies
+     */
     public static void getPopularMovies(){
         Call<KMovies> call = MoviedbApi.getInstance().getService().getPopular(BuildConfig.THE_MOVIE_DB_API_KEY);
         Log.d(LOG_TAG, "call: " + call.request().toString());
@@ -26,7 +28,7 @@ public class ApiController {
                 int statusCode = response.code();
                 KMovies movies = response.body();
 
-                EventBus.getDefault().post(new MessageEvent(movies.getResults().get(0).getTitle()));
+                EventBus.getDefault().post(movies);
 
                 Log.d(LOG_TAG, "onResponse - statusCode: "+ statusCode);
                 Log.d(LOG_TAG, "first movie: " + movies.getResults().get(0).getTitle());

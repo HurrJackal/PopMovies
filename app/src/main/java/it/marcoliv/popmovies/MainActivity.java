@@ -1,7 +1,6 @@
 package it.marcoliv.popmovies;
 
 
-import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -14,38 +13,20 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import it.marcoliv.popmovies.model.KMovies;
 
-import it.marcoliv.popmovies.model.MessageEvent;
-import it.marcoliv.popmovies.model.SomeOtherEvent;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+import it.marcoliv.popmovies.model.KMovie;
+import it.marcoliv.popmovies.model.KMovies;
 
 public class MainActivity extends AppCompatActivity {
     private static final String LOG_TAG = MainActivity.class.getSimpleName();
-    String[] mockUrl = {
-            "http://i.imgur.com/rFLNqWI.jpg",
-            "http://i.imgur.com/C9pBVt7.jpg",
-            "http://i.imgur.com/rT5vXE1.jpg",
-            "http://i.imgur.com/aIy5R2k.jpg",
-            "http://i.imgur.com/MoJs9pT.jpg",
-            "http://i.imgur.com/S963yEM.jpg",
-            "http://i.imgur.com/rLR2cyc.jpg",
-            "http://i.imgur.com/SEPdUIx.jpg",
-            "http://i.imgur.com/aC9OjaM.jpg",
-            "http://i.imgur.com/76Jfv9b.jpg",
-            "http://i.imgur.com/fUX7EIB.jpg",
-            "http://i.imgur.com/syELajx.jpg",
-            "http://i.imgur.com/COzBnru.jpg",
-            "http://i.imgur.com/Z3QjilA.jpg",
-    };
-
     @BindView(R.id.gridview) GridView gridView;
+    ImageAdapter mImageAdapter = null;
+    List<KMovie> movies = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +34,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.grid_view_layout);
         ButterKnife.bind(this);
 
-        ImageAdapter mImageAdapter = new ImageAdapter(this,mockUrl);
+        // setting up adapter
+        mImageAdapter = new ImageAdapter(this, movies);
 
         gridView.setAdapter(mImageAdapter);
 
@@ -64,8 +46,12 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        Log.d(LOG_TAG, "my Api key: "+BuildConfig.THE_MOVIE_DB_API_KEY);
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         ApiController.getPopularMovies();
     }
 
@@ -81,16 +67,15 @@ public class MainActivity extends AppCompatActivity {
         super.onStop();
     }
 
-    // This method will be called when a MessageEvent is posted
+    // This method will be called when a KMessageEvent is posted
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onMessageEvent(MessageEvent event){
-        Toast.makeText(getApplicationContext(), event.getMessage(), Toast.LENGTH_SHORT).show();
-    }
+    public void onMessageEvent(KMovies movies){
+        Log.d(LOG_TAG, "onMessageEvent - getTotal_pages: " + movies.getTotal_pages());
 
-    // This method will be calle when a SomeOtherEvent is posted
-    @Subscribe
-    public void handleSomethingElse(SomeOtherEvent event){
-        Log.d(LOG_TAG, "handleSomethingElse - code: " + event.getCode() + " message: " + event.getMessage());
+        // dynamically update adapter
+        mImageAdapter.addAll(movies.getResults());
+
+
     }
 
 
