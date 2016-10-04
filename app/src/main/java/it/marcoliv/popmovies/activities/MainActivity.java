@@ -1,6 +1,7 @@
-package it.marcoliv.popmovies;
+package it.marcoliv.popmovies.activities;
 
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -8,6 +9,9 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.Toast;
+
+import com.squareup.moshi.JsonAdapter;
+import com.squareup.moshi.Moshi;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -19,6 +23,10 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import it.marcoliv.popmovies.Constants;
+import it.marcoliv.popmovies.network.ApiController;
+import it.marcoliv.popmovies.ImageAdapter;
+import it.marcoliv.popmovies.R;
 import it.marcoliv.popmovies.model.KMovie;
 import it.marcoliv.popmovies.model.KMovies;
 
@@ -34,19 +42,25 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.grid_view_layout);
         ButterKnife.bind(this);
 
-        // setting up adapter
+        Moshi moshi = new Moshi.Builder().build();
+        final JsonAdapter<KMovie> jsonAdapter = moshi.adapter(KMovie.class);
+
         mImageAdapter = new ImageAdapter(this, movies);
 
         gridView.setAdapter(mImageAdapter);
 
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Toast.makeText(MainActivity.this, "Your selected position is: "+i, Toast.LENGTH_SHORT).show();
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                Toast.makeText(MainActivity.this, "Your selected position is: "+ position, Toast.LENGTH_SHORT).show();
+
+                String mMovie = jsonAdapter.toJson(movies.get(position));
+
+                Intent intent = new Intent(getApplicationContext(), DetailActivity.class);
+                intent.putExtra(Constants.EXTRA_MESSAGE, mMovie);
+                startActivity(intent);
             }
         });
-
-
     }
 
     @Override
@@ -69,13 +83,14 @@ public class MainActivity extends AppCompatActivity {
 
     // This method will be called when a KMessageEvent is posted
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onMessageEvent(KMovies movies){
-        Log.d(LOG_TAG, "onMessageEvent - getTotal_pages: " + movies.getTotal_pages());
+    public void onMessageEvent(KMovies messageMovies){
+        Log.d(LOG_TAG, "onMessageEvent - messageEmpty? " + movies.isEmpty());
+
+        // load data locally
+        movies = messageMovies.getResults();
 
         // dynamically update adapter
-        mImageAdapter.addAll(movies.getResults());
-
-
+        mImageAdapter.addAll(movies);
     }
 
 

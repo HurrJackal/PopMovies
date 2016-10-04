@@ -1,4 +1,4 @@
-package it.marcoliv.popmovies;
+package it.marcoliv.popmovies.network;
 
 import it.marcoliv.popmovies.model.KMovies;
 import retrofit2.Call;

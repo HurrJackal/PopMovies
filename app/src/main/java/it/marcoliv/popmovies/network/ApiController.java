@@ -1,9 +1,9 @@
-package it.marcoliv.popmovies;
+package it.marcoliv.popmovies.network;
 
 import android.util.Log;
-
 import org.greenrobot.eventbus.EventBus;
 
+import it.marcoliv.popmovies.BuildConfig;
 import it.marcoliv.popmovies.model.KMovies;
 import retrofit2.Call;
 import retrofit2.Callback;

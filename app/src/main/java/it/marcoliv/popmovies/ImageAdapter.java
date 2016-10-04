@@ -2,22 +2,15 @@ package it.marcoliv.popmovies;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
-import android.util.DisplayMetrics;
 import android.util.Log;
-import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
-
 import com.squareup.picasso.Picasso;
-
 import java.util.List;
-
 import it.marcoliv.popmovies.model.KMovie;
-import it.marcoliv.popmovies.model.KMovies;
 
 /**
  * Created by marcoliv on 9/22/2016.
