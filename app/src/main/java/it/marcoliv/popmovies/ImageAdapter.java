@@ -2,10 +2,13 @@ package it.marcoliv.popmovies;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 
@@ -48,7 +51,14 @@ public class ImageAdapter extends ArrayAdapter {
            convertView = inflater.inflate(R.layout.grid_view_image, parent, false);
         }
 
-        String url =    Constants.BASE_URL_IMAGE + Constants.RESOLUTION_W1000 +
+        WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+        DisplayMetrics metrics = new DisplayMetrics();
+        wm.getDefaultDisplay().getMetrics(metrics);
+
+        int height  = metrics.heightPixels;
+        int width   = metrics.widthPixels;
+
+        String url =    Constants.BASE_URL_IMAGE + Constants.RESOLUTION_W500 +
                         mMovies.get(position).getPoster_path();
 
         Log.d(LOG_TAG, "url: " + url);
@@ -56,6 +66,9 @@ public class ImageAdapter extends ArrayAdapter {
         Picasso
                 .with(context)
                 .load(url)
+                .resize(width / 2, height / 2)
+                .centerInside()
+                .placeholder(R.drawable.grey)
                 .into((ImageView)convertView);
 
         return convertView;
