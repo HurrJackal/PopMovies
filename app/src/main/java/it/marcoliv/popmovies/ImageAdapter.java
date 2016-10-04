@@ -51,13 +51,6 @@ public class ImageAdapter extends ArrayAdapter {
            convertView = inflater.inflate(R.layout.grid_view_image, parent, false);
         }
 
-        WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
-        DisplayMetrics metrics = new DisplayMetrics();
-        wm.getDefaultDisplay().getMetrics(metrics);
-
-        int height  = metrics.heightPixels;
-        int width   = metrics.widthPixels;
-
         String url =    Constants.BASE_URL_IMAGE + Constants.RESOLUTION_W500 +
                         mMovies.get(position).getPoster_path();
 
@@ -66,9 +59,6 @@ public class ImageAdapter extends ArrayAdapter {
         Picasso
                 .with(context)
                 .load(url)
-                .resize(width / 2, height / 2)
-                .centerInside()
-                .placeholder(R.drawable.grey)
                 .into((ImageView)convertView);
 
         return convertView;
