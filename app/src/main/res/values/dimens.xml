@@ -5,7 +5,7 @@
     <dimen name="dur_text">20sp</dimen>
     <dimen name="vote_text">16sp</dimen>
 
-    <dimen name="margin_internal">15dp</dimen>
+    <dimen name="margin_internal">10dp</dimen>
     <dimen name="margin_left">15dp</dimen>
     <dimen name="margin_top">5dp</dimen>
 

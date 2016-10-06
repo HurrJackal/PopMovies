@@ -9,74 +9,77 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/tvTitle"
+        <RelativeLayout
+            android:id="@+id/topPanel"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/colorAccent"
-            android:paddingBottom="60dp"
-            android:paddingLeft="20dp"
-            android:paddingTop="30dp"
-            android:text="Title"
-            android:textColor="@color/colorWhite"
-            android:textSize="@dimen/title_text"
-            android:textStyle="normal" />
+            android:layout_height="match_parent">
 
-        <ImageView
-            android:id="@+id/imgThumb"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/tvTitle"
-            android:layout_marginLeft="@dimen/margin_internal"
-            android:layout_marginRight="@dimen/margin_internal"
-            android:layout_marginTop="@dimen/margin_top"
-            android:adjustViewBounds="true"
-            android:minHeight="@android:dimen/thumbnail_height"
-            android:minWidth="@android:dimen/thumbnail_width"
-            android:src="@mipmap/ic_launcher" />
+            <TextView
+                android:id="@+id/tvTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorAccent"
+                android:paddingBottom="@dimen/padding_bottom"
+                android:paddingLeft="@dimen/padding_left"
+                android:paddingTop="@dimen/padding_top"
+                android:text="@string/title"
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/title_text"
+                android:textStyle="normal" />
 
-        <TextView
-            android:id="@+id/tvYear"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/tvTitle"
-            android:layout_marginLeft="@dimen/margin_left"
-            android:layout_toRightOf="@+id/imgThumb"
-            android:text="@string/release_date"
-            android:textSize="@dimen/year_text" />
+            <ImageView
+                android:id="@+id/imgThumb"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvTitle"
+                android:layout_marginLeft="@dimen/margin_internal"
+                android:layout_marginRight="@dimen/margin_internal"
+                android:layout_marginTop="@dimen/margin_top"
+                android:adjustViewBounds="true"
+                android:minHeight="@android:dimen/thumbnail_height"
+                android:minWidth="@android:dimen/thumbnail_width"
+                android:src="@mipmap/ic_launcher" />
 
-        <TextView
-            android:id="@+id/tvDuration"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/tvYear"
-            android:layout_marginLeft="@dimen/margin_left"
-            android:layout_marginTop="@dimen/margin_top"
-            android:layout_toRightOf="@+id/imgThumb"
-            android:text="@string/duration"
-            android:textSize="@dimen/dur_text"
-            android:textStyle="bold" />
+            <TextView
+                android:id="@+id/tvYear"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvTitle"
+                android:layout_toRightOf="@+id/imgThumb"
+                android:text="@string/release_date"
+                android:textSize="25sp" />
 
-        <TextView
-            android:id="@+id/tvVote"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/tvDuration"
-            android:layout_marginLeft="@dimen/margin_left"
-            android:layout_marginTop="@dimen/margin_top"
-            android:layout_toRightOf="@+id/imgThumb"
-            android:text="@string/vote"
-            android:textSize="@dimen/vote_text" />
+            <TextView
+                android:id="@+id/tvDuration"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvYear"
+                android:layout_marginTop="5dp"
+                android:layout_toRightOf="@+id/imgThumb"
+                android:text="@string/duration"
+                android:textSize="@dimen/dur_text"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvVote"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvDuration"
+                android:layout_marginTop="5dp"
+                android:layout_toRightOf="@+id/imgThumb"
+                android:text="@string/vote"
+                android:textSize="@dimen/vote_text" />
+        </RelativeLayout>
 
         <TextView
             android:id="@+id/tvDescription"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/imgThumb"
+            android:layout_below="@+id/topPanel"
             android:layout_gravity="center_vertical|right"
             android:layout_marginLeft="@dimen/margin_internal"
             android:layout_marginRight="@dimen/margin_internal"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="@dimen/margin_top"
             android:text="@string/description"
             android:textSize="@dimen/desc_text" />
 
@@ -99,6 +102,6 @@
             android:layout_marginTop="@dimen/margin_top"
             android:text="@string/trailers"
             android:textSize="@dimen/dur_text" />
-    </RelativeLayout>
 
+    </RelativeLayout>
 </ScrollView>

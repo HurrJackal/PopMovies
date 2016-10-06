@@ -1,9 +1,11 @@
 package it.marcoliv.popmovies.activities;
 
+import android.content.res.Configuration;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.squareup.moshi.JsonAdapter;
@@ -15,6 +17,7 @@ import java.io.IOException;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import it.marcoliv.popmovies.Constants;
+import it.marcoliv.popmovies.MyApplication;
 import it.marcoliv.popmovies.R;
 import it.marcoliv.popmovies.model.KMovie;
 
@@ -29,6 +32,7 @@ public class DetailActivity extends AppCompatActivity {
     @BindView(R.id.tvVote) TextView tvVote;
     @BindView(R.id.tvDescription) TextView tvDescription;
     @BindView(R.id.imgThumb) ImageView imgThumb;
+    @BindView(R.id.topPanel) RelativeLayout topPanel;
 
 
     @Override
@@ -71,6 +75,40 @@ public class DetailActivity extends AppCompatActivity {
                 .load(url)
                 .into(imgThumb);
 
+    }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        resize();
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+
+        resize();
+    }
+
+    private void resize(){
+
+        int displayHeight = ((MyApplication) getApplication()).getDisplayHeight();
+        int displayWidth =  ((MyApplication) getApplication()).getDisplayWidth();
+        boolean isLandscape = getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
+
+        RelativeLayout.LayoutParams topPanelLp = (RelativeLayout.LayoutParams) topPanel.getLayoutParams();
+        RelativeLayout.LayoutParams imgLp = (RelativeLayout.LayoutParams) imgThumb.getLayoutParams();
+
+        if(isLandscape){
+            Log.d(getClass().getSimpleName(), "isLandscape");
+            topPanelLp.height = (int) (displayHeight * 0.40);
+
+            imgLp.width = (int) (displayWidth * 0.30);
+            imgLp.height = (int) (displayHeight * 0.30) ;
+
+        } else{
+            Log.d(getClass().getSimpleName(), "isPortrait");
+        }
     }
 }
