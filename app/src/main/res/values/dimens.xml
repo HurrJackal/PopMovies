@@ -9,8 +9,8 @@
     <dimen name="margin_left">15dp</dimen>
     <dimen name="margin_top">5dp</dimen>
 
-    <dimen name="padding_bottom">40dp</dimen>
+    <dimen name="padding_bottom">25dp</dimen>
     <dimen name="padding_left">20dp</dimen>
-    <dimen name="padding_top">20dp</dimen>
+    <dimen name="padding_top">15dp</dimen>
 
 </resources>

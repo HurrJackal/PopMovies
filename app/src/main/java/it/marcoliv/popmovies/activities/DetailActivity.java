@@ -105,7 +105,7 @@ public class DetailActivity extends AppCompatActivity {
             topPanelLp.height = (int) (displayHeight * 0.40);
 
             imgLp.width = (int) (displayWidth * 0.30);
-            imgLp.height = (int) (displayHeight * 0.30) ;
+            imgLp.height = (int) (imgLp.width * (3.0/2.0));
 
         } else{
             Log.d(getClass().getSimpleName(), "isPortrait");

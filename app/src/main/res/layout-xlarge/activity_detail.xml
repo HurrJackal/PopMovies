@@ -20,7 +20,7 @@
                 android:layout_height="wrap_content"
                 android:background="@color/colorAccent"
                 android:paddingBottom="@dimen/padding_bottom"
-                android:paddingLeft="@dimen/padding_left"
+                android:paddingLeft="@dimen/margin_internal"
                 android:paddingTop="@dimen/padding_top"
                 android:text="@string/title"
                 android:textColor="@color/colorWhite"
@@ -30,14 +30,12 @@
             <ImageView
                 android:id="@+id/imgThumb"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_below="@+id/tvTitle"
+                android:adjustViewBounds="true"
                 android:layout_marginLeft="@dimen/margin_internal"
                 android:layout_marginRight="@dimen/margin_internal"
                 android:layout_marginTop="@dimen/margin_top"
-                android:adjustViewBounds="true"
-                android:minHeight="@android:dimen/thumbnail_height"
-                android:minWidth="@android:dimen/thumbnail_width"
                 android:src="@mipmap/ic_launcher" />
 
             <TextView
@@ -47,7 +45,7 @@
                 android:layout_below="@+id/tvTitle"
                 android:layout_toRightOf="@+id/imgThumb"
                 android:text="@string/release_date"
-                android:textSize="25sp" />
+                android:textSize="@dimen/year_text" />
 
             <TextView
                 android:id="@+id/tvDuration"
