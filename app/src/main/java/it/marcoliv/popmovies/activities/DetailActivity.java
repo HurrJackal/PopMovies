@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.squareup.moshi.JsonAdapter;
 import com.squareup.moshi.Moshi;
@@ -26,9 +25,9 @@ public class DetailActivity extends AppCompatActivity {
     JsonAdapter<KMovie> jsonAdapter = null;
     @BindView(R.id.tvTitle) TextView tvTitle;
     @BindView(R.id.tvYear) TextView tvYear;
+    @BindView(R.id.tvDuration) TextView tvDuration;
     @BindView(R.id.tvVote) TextView tvVote;
     @BindView(R.id.tvDescription) TextView tvDescription;
-    @BindView(R.id.tvDuration) TextView tvDuration;
     @BindView(R.id.imgThumb) ImageView imgThumb;
 
 
@@ -40,6 +39,7 @@ public class DetailActivity extends AppCompatActivity {
 
         moshi = new Moshi.Builder().build();
         jsonAdapter = moshi.adapter(KMovie.class);
+
     }
 
     @Override

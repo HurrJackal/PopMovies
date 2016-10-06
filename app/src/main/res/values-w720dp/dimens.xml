@@ -1,0 +1,16 @@
+<resources>
+    <dimen name="title_text">50sp</dimen>
+    <dimen name="year_text">40sp</dimen>
+    <dimen name="desc_text">20sp</dimen>
+    <dimen name="dur_text">30sp</dimen>
+    <dimen name="vote_text">22sp</dimen>
+
+    <dimen name="margin_internal">40dp</dimen>
+    <dimen name="margin_left">20dp</dimen>
+    <dimen name="margin_top">10dp</dimen>
+
+    <dimen name="padding_bottom">60dp</dimen>
+    <dimen name="padding_left">20dp</dimen>
+    <dimen name="padding_top">30dp</dimen>
+
+</resources>

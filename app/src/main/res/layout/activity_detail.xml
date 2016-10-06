@@ -1,86 +1,101 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="it.marcoliv.popmovies.activities.DetailActivity"
-    android:id="@+id/activity_detail"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context="it.marcoliv.popmovies.activities.DetailActivity">
 
-
-    <TextView
-        android:id="@+id/tvTitle"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textStyle="normal"
-        android:text="Title"
-        android:textColor="@color/colorWhite"
-        android:textSize="25sp"
-        android:paddingTop="15dp"
-        android:paddingBottom="25dp"
-        android:paddingLeft="7sp"
-        android:paddingRight="7sp"
-        android:background="@color/colorAccent"
-        />
+        android:layout_height="match_parent">
 
-    <ImageView
-        android:id="@+id/imgThumb"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:layout_below="@+id/tvTitle"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="10dp"
-        android:src="@mipmap/ic_launcher"
-        android:minHeight="@android:dimen/thumbnail_height"
-        android:minWidth="@android:dimen/thumbnail_width"
-        android:adjustViewBounds="true"
-        />
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorAccent"
+            android:paddingBottom="@dimen/padding_bottom"
+            android:paddingLeft="@dimen/padding_left"
+            android:paddingTop="@dimen/padding_top"
+            android:text="@string/title"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/title_text"
+            android:textStyle="normal" />
 
-    <TextView
-        android:id="@+id/tvYear"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/release_date"
-        android:textSize="25sp"
-        android:layout_below="@+id/tvTitle"
-        android:layout_toRightOf="@+id/imgThumb"
-        />
+        <ImageView
+            android:id="@+id/imgThumb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvTitle"
+            android:layout_marginLeft="@dimen/margin_internal"
+            android:layout_marginRight="@dimen/margin_internal"
+            android:layout_marginTop="@dimen/margin_top"
+            android:adjustViewBounds="true"
+            android:minHeight="@android:dimen/thumbnail_height"
+            android:minWidth="@android:dimen/thumbnail_width"
+            android:src="@mipmap/ic_launcher" />
 
-    <TextView
-        android:id="@+id/tvDuration"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/duration"
-        android:textSize="20sp"
-        android:layout_below="@+id/tvYear"
-        android:layout_toRightOf="@+id/imgThumb"
-        android:layout_marginTop="5dp"
-        android:textStyle="bold"
-        />
+        <TextView
+            android:id="@+id/tvYear"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvTitle"
+            android:layout_toRightOf="@+id/imgThumb"
+            android:text="@string/release_date"
+            android:textSize="25sp" />
 
-    <TextView
-        android:id="@+id/tvVote"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="15sp"
-        android:text="@string/vote"
-        android:layout_below="@+id/tvDuration"
-        android:layout_toRightOf="@+id/imgThumb"
-        android:layout_marginTop="5dp"
-        />
+        <TextView
+            android:id="@+id/tvDuration"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvYear"
+            android:layout_marginTop="5dp"
+            android:layout_toRightOf="@+id/imgThumb"
+            android:text="@string/duration"
+            android:textSize="@dimen/dur_text"
+            android:textStyle="bold" />
 
-    <TextView
-        android:id="@+id/tvDescription"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/description"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:layout_below="@+id/imgThumb"
-        android:textSize="15sp"
-        android:layout_marginTop="10dp"
-        android:layout_gravity="center_vertical|right"
-        />
+        <TextView
+            android:id="@+id/tvVote"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvDuration"
+            android:layout_marginTop="5dp"
+            android:layout_toRightOf="@+id/imgThumb"
+            android:text="@string/vote"
+            android:textSize="@dimen/vote_text" />
+
+        <TextView
+            android:id="@+id/tvDescription"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/imgThumb"
+            android:layout_gravity="center_vertical|right"
+            android:layout_marginLeft="@dimen/margin_internal"
+            android:layout_marginRight="@dimen/margin_internal"
+            android:layout_marginTop="@dimen/margin_top"
+            android:text="@string/description"
+            android:textSize="@dimen/desc_text" />
+
+        <View
+            android:id="@+id/line"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_below="@+id/tvDescription"
+            android:layout_marginLeft="@dimen/margin_internal"
+            android:layout_marginRight="@dimen/margin_internal"
+            android:layout_marginTop="@dimen/margin_top"
+            android:background="@color/colorPrimaryDark" />
 
 
-</RelativeLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/line"
+            android:layout_marginLeft="@dimen/margin_internal"
+            android:layout_marginTop="@dimen/margin_top"
+            android:text="@string/trailers"
+            android:textSize="@dimen/dur_text" />
+
+    </RelativeLayout>
+</ScrollView>

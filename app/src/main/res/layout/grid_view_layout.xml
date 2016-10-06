@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:horizontalSpacing="0dp"
-    android:numColumns="2"
+    android:numColumns="@integer/columns"
     android:stretchMode="columnWidth"
     android:verticalSpacing="0dp"
     android:background="@color/colorGray"/>
