@@ -14,11 +14,10 @@
         android:textStyle="normal"
         android:text="Title"
         android:textColor="@color/colorWhite"
-        android:textSize="25sp"
-        android:paddingTop="15dp"
-        android:paddingBottom="25dp"
-        android:paddingLeft="7sp"
-        android:paddingRight="7sp"
+        android:textSize="@dimen/title_text_xlarge"
+        android:paddingTop="30dp"
+        android:paddingBottom="60dp"
+        android:paddingLeft="20dp"
         android:background="@color/colorAccent"
         />
 
@@ -26,10 +25,10 @@
         android:id="@+id/imgThumb"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="@dimen/margin_top_xlarge"
         android:layout_below="@+id/tvTitle"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="10dp"
+        android:layout_marginLeft="@dimen/margin_internal_xlarge"
+        android:layout_marginRight="@dimen/margin_internal_xlarge"
         android:src="@mipmap/ic_launcher"
         android:minHeight="@android:dimen/thumbnail_height"
         android:minWidth="@android:dimen/thumbnail_width"
@@ -41,9 +40,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/release_date"
-        android:textSize="25sp"
+        android:textSize="@dimen/year_text_xlarge"
         android:layout_below="@+id/tvTitle"
         android:layout_toRightOf="@+id/imgThumb"
+        android:layout_marginLeft="@dimen/margin_left_xlarge"
         />
 
     <TextView
@@ -51,10 +51,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/duration"
-        android:textSize="20sp"
+        android:textSize="@dimen/dur_text_xlarge"
         android:layout_below="@+id/tvYear"
         android:layout_toRightOf="@+id/imgThumb"
-        android:layout_marginTop="5dp"
+        android:layout_marginLeft="@dimen/margin_left_xlarge"
+        android:layout_marginTop="@dimen/margin_top_xlarge"
         android:textStyle="bold"
         />
 
@@ -62,11 +63,12 @@
         android:id="@+id/tvVote"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="15sp"
+        android:textSize="@dimen/vote_text_xlarge"
         android:text="@string/vote"
         android:layout_below="@+id/tvDuration"
         android:layout_toRightOf="@+id/imgThumb"
-        android:layout_marginTop="5dp"
+        android:layout_marginLeft="@dimen/margin_left_xlarge"
+        android:layout_marginTop="@dimen/margin_top_xlarge"
         />
 
     <TextView
@@ -74,13 +76,32 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/description"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
+        android:layout_marginLeft="@dimen/margin_internal_xlarge"
+        android:layout_marginRight="@dimen/margin_internal_xlarge"
         android:layout_below="@+id/imgThumb"
-        android:textSize="15sp"
-        android:layout_marginTop="10dp"
+        android:textSize="@dimen/desc_text_xlarge"
+        android:layout_marginTop="30dp"
         android:layout_gravity="center_vertical|right"
         />
+
+    <View
+        android:id="@+id/line"
+        android:background="@color/colorPrimaryDark"
+        android:layout_width = "match_parent"
+        android:layout_height="2dp"
+        android:layout_marginTop="@dimen/margin_top_xlarge"
+        android:layout_marginLeft="@dimen/margin_internal_xlarge"
+        android:layout_marginRight="@dimen/margin_internal_xlarge"
+        android:layout_below="@+id/tvDescription"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/trailers"
+        android:layout_below="@+id/line"
+        android:layout_marginLeft="@dimen/margin_internal_xlarge"
+        android:layout_marginTop="@dimen/margin_top_xlarge"
+        android:textSize="@dimen/dur_text_xlarge"/>
 
 
 </RelativeLayout>

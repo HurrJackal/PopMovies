@@ -54,7 +54,10 @@ public class MainActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
                 Toast.makeText(MainActivity.this, "Your selected position is: "+ position, Toast.LENGTH_SHORT).show();
 
-                String mMovie = jsonAdapter.toJson(movies.get(position));
+                // circularPosition mantain position counter inside the array range, like a circular array
+                int circularPosition = position % movies.size();
+
+                String mMovie = jsonAdapter.toJson(movies.get(circularPosition));
 
                 Intent intent = new Intent(getApplicationContext(), DetailActivity.class);
                 intent.putExtra(Constants.EXTRA_MESSAGE, mMovie);
