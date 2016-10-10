@@ -1,14 +1,11 @@
 package it.marcoliv.popmovies.activities;
 
 
-import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.GridView;
-import android.widget.Toast;
 
 import com.squareup.moshi.JsonAdapter;
 import com.squareup.moshi.Moshi;
@@ -23,7 +20,6 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import it.marcoliv.popmovies.Constants;
 import it.marcoliv.popmovies.network.ApiController;
 import it.marcoliv.popmovies.ImageAdapter;
 import it.marcoliv.popmovies.R;
@@ -32,7 +28,7 @@ import it.marcoliv.popmovies.model.KMovies;
 
 public class MainActivity extends AppCompatActivity {
     private static final String LOG_TAG = MainActivity.class.getSimpleName();
-    @BindView(R.id.gridview) GridView gridView;
+    @BindView(R.id.gridview) RecyclerView gridView;
     ImageAdapter mImageAdapter = null;
     List<KMovie> movies = new ArrayList<>();
 
@@ -47,24 +43,30 @@ public class MainActivity extends AppCompatActivity {
 
         mImageAdapter = new ImageAdapter(this, movies);
 
+        GridLayoutManager glm = new GridLayoutManager(this, getResources().getInteger(R.integer.columns));
+
+        gridView.setLayoutManager(glm);
+
         gridView.setAdapter(mImageAdapter);
 
-        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-                Toast.makeText(MainActivity.this, "Your selected position is: "+ position, Toast.LENGTH_SHORT).show();
-
-                // circularPosition mantain position counter inside the array range, like a circular array
-                int circularPosition = position % movies.size();
-
-                String mMovie = jsonAdapter.toJson(movies.get(circularPosition));
-
-                Intent intent = new Intent(getApplicationContext(), DetailActivity.class);
-                intent.putExtra(Constants.EXTRA_MESSAGE, mMovie);
-                startActivity(intent);
-            }
-        });
+//        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+//                Toast.makeText(MainActivity.this, "Your selected position is: "+ position, Toast.LENGTH_SHORT).show();
+//
+//                // circularPosition mantain position counter inside the array range, like a circular array
+//                int circularPosition = position % movies.size();
+//
+//                String mMovie = jsonAdapter.toJson(movies.get(circularPosition));
+//
+//                Intent intent = new Intent(getApplicationContext(), DetailActivity.class);
+//                intent.putExtra(Constants.EXTRA_MESSAGE, mMovie);
+//                startActivity(intent);
+//            }
+//        });
     }
+
+
 
     @Override
     protected void onResume() {
@@ -86,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
 
     // This method will be called when a KMessageEvent is posted
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onMessageEvent(KMovies messageMovies){
+    public void onMessageEvent(KMovies messageMovies) {
         Log.d(LOG_TAG, "onMessageEvent - messageEmpty? " + movies.isEmpty());
 
         // load data locally
