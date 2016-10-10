@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- smartphone in portrait mode -->
     <integer name="min_column_width">500</integer>
 </resources>

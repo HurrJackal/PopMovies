@@ -1,4 +1,4 @@
-package it.marcoliv.popmovies;
+package it.marcoliv.popmovies.gui;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -12,6 +12,8 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
+import it.marcoliv.popmovies.Constants;
+import it.marcoliv.popmovies.R;
 import it.marcoliv.popmovies.model.KMovie;
 
 /**

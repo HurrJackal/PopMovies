@@ -1,11 +1,14 @@
 package it.marcoliv.popmovies.activities;
 
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
+import android.widget.Toast;
 
 import com.squareup.moshi.JsonAdapter;
 import com.squareup.moshi.Moshi;
@@ -21,9 +24,10 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 import it.marcoliv.popmovies.Constants;
-import it.marcoliv.popmovies.VarColumnGridLayoutManager;
+import it.marcoliv.popmovies.gui.RecyclerItemClickListener;
+import it.marcoliv.popmovies.gui.VarColumnGridLayoutManager;
 import it.marcoliv.popmovies.network.ApiController;
-import it.marcoliv.popmovies.ImageAdapter;
+import it.marcoliv.popmovies.gui.ImageAdapter;
 import it.marcoliv.popmovies.R;
 import it.marcoliv.popmovies.model.KMovie;
 import it.marcoliv.popmovies.model.KMovies;
@@ -51,24 +55,27 @@ public class MainActivity extends AppCompatActivity {
 
         gridView.setAdapter(mImageAdapter);
 
-//        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-//                Toast.makeText(MainActivity.this, "Your selected position is: "+ position, Toast.LENGTH_SHORT).show();
-//
-//                // circularPosition mantain position counter inside the array range, like a circular array
-//                int circularPosition = position % movies.size();
-//
-//                String mMovie = jsonAdapter.toJson(movies.get(circularPosition));
-//
-//                Intent intent = new Intent(getApplicationContext(), DetailActivity.class);
-//                intent.putExtra(Constants.EXTRA_MESSAGE, mMovie);
-//                startActivity(intent);
-//            }
-//        });
+        gridView.addOnItemTouchListener(new RecyclerItemClickListener(this, gridView ,new RecyclerItemClickListener.OnItemClickListener() {
+            @Override public void onItemClick(View view, int position) {
+                Toast.makeText(MainActivity.this, "Your selected position is: "+ position, Toast.LENGTH_SHORT).show();
+
+                // circularPosition mantain position counter inside the array range, like a circular array
+                int circularPosition = position % movies.size();
+
+                String mMovie = jsonAdapter.toJson(movies.get(circularPosition));
+
+                Intent intent = new Intent(getApplicationContext(), DetailActivity.class);
+                intent.putExtra(Constants.EXTRA_MESSAGE, mMovie);
+                startActivity(intent);
+            }
+
+            @Override public void onLongItemClick(View view, int position) {
+                Toast.makeText(MainActivity.this, "Longclick selected position is: "+ position, Toast.LENGTH_SHORT).show();
+
+            }
+        }));
+
     }
-
-
 
     @Override
     protected void onResume() {
@@ -99,6 +106,5 @@ public class MainActivity extends AppCompatActivity {
         // dynamically update adapter
         mImageAdapter.addAll(movies);
     }
-
 
 }
