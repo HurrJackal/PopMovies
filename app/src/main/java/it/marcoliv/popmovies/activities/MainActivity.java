@@ -20,6 +20,8 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import it.marcoliv.popmovies.Constants;
+import it.marcoliv.popmovies.VarColumnGridLayoutManager;
 import it.marcoliv.popmovies.network.ApiController;
 import it.marcoliv.popmovies.ImageAdapter;
 import it.marcoliv.popmovies.R;
@@ -43,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
 
         mImageAdapter = new ImageAdapter(this, movies);
 
-        GridLayoutManager glm = new GridLayoutManager(this, getResources().getInteger(R.integer.columns));
+        GridLayoutManager glm = new VarColumnGridLayoutManager(this, getResources().getInteger(R.integer.min_column_width));
 
         gridView.setLayoutManager(glm);
 
