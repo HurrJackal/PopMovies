@@ -4,4 +4,4 @@ Udacity project, display movies posters into thumbnail and when user select ones
 <br>
 Technologies:
 <br>
-Retrofit2, Butterknife, Moshi, Eventbus, Picasso, Kotlin.
+Retrofit2, Butterknife, Moshi, Eventbus, Picasso, Kotlin, RecyclerView.
